@@ -3,82 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>David Soatse | Cyber Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>David Soatse | CyberSecurity Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&display=swap" rel="stylesheet">
+
     <style>
-        @keyframes pulse-blue {
-            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        /* --- STYLE CSS --- */
+        :root {
+            --primary: #00ff41; /* Vert Matrix */
+            --primary-dim: rgba(0, 255, 65, 0.4);
+            --bg: #050505;
+            --card-bg: rgba(20, 20, 20, 0.8);
+            --text: #e0e0e0;
         }
-        .hacker-card:hover {
-            transform: translateY(-10px);
-            border-color: #3b82f6;
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Fira Code', monospace;
+            overflow-x: hidden;
+        }
+
+        /* Container pour l'animation de fond */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            top: 0;
+            left: 0;
+        }
+
+        /* Contenu principal au-dessus des particules */
+        .content-overlay {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .terminal-box {
+            background: var(--card-bg);
+            padding: 40px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+            border-radius: 8px;
+            max-width: 800px;
+            position: relative;
+        }
+
+        /* --- AJOUT DE LA PHOTO --- */
+        .profile-pic-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px auto; /* Centre la photo et l'écarte du titre */
+            position: relative;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%; /* Rend la photo circulaire */
+            border: 3px solid var(--primary); /* Contour vert */
+            box-shadow: 0 0 15px var(--primary-dim); /* Effet brillant */
+            object-fit: cover; /* Recadre proprement l'image */
+            display: block;
+        }
+        /* -------------------------- */
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .typing-container {
+            min-height: 1.6em; /* Évite les sauts de ligne quand le texte s'écrit */
+        }
+
+        .typing {
+            border-right: 2px solid var(--primary);
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        /* Grille de compétences */
+        .skills-section {
+            padding: 100px 10%;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            padding: 25px;
             transition: all 0.3s ease;
+            border-radius: 4px;
         }
-        .glitch-text:hover {
-            text-shadow: 2px 0 #ff00c1, -2px 0 #00fff9;
+
+        .skill-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+        }
+
+        .skill-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* Animations */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.5rem; }
+            .profile-pic-container { width: 100px; height: 100px; }
+            .terminal-box { padding: 25px; }
         }
     </style>
 </head>
-<body class="bg-black text-gray-300 font-mono">
+<body>
 
-    <nav class="p-6 flex justify-between items-center max-w-6xl mx-auto border-b border-gray-800">
-        <h1 class="text-xl font-bold text-blue-500 tracking-widest uppercase glitch-text">David@Soatse:~#</h1>
-        <div class="space-x-6 text-sm">
-            <a href="#competences" class="hover:text-blue-400 transition">Skills</a>
-            <a href="#projets" class="hover:text-blue-400 transition">Projects</a>
-            <a href="https://github.com/davidsoatse-wq" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded">GitHub</a>
-        </div>
-    </nav>
+    <div id="particles-js"></div>
 
-    <section class="py-24 text-center max-w-4xl mx-auto px-4">
-        <div class="relative inline-block mb-10">
-            <img src="alex.jpg" alt="David Soatse" class="w-44 h-44 rounded-full border-2 border-blue-500 object-cover grayscale hover:grayscale-0 transition duration-500 shadow-[0_0_20px_rgba(59,130,246,0.5)]">
-            <div class="absolute inset-0 rounded-full" style="animation: pulse-blue 2s infinite;"></div>
-        </div>
-        <h2 class="text-5xl font-black text-white mb-4 tracking-tighter uppercase">David Soatse</h2>
-        <p class="text-blue-400 text-lg mb-8 font-bold">&gt; Software Engineer & Cybersecurity Student</p>
-        <p class="text-gray-500 max-w-2xl mx-auto italic">"Analyser le code, sécuriser l'avenir. Basé au Cameroun."</p>
-    </section>
+    <div class="content-overlay">
+        <header>
+            <div class="logo">DS_SECURE >_</div>
+            <nav>
+                <span style="color: var(--primary); font-size: 0.8rem;">[STATUS: VERIFIED]</span>
+            </nav>
+        </header>
 
-    <section id="competences" class="py-20 bg-[#0a0a0a]">
-        <div class="max-w-6xl mx-auto px-6">
-            <h3 class="text-2xl font-bold mb-16 text-center text-white uppercase tracking-[0.3em]">Core_Competencies</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="hacker-card border border-gray-800 p-6 rounded bg-black text-center group">
-                    <i class="fab fa-react text-4xl mb-4 group-hover:text-blue-400"></i>
-                    <p class="font-bold">React</p>
+        <section class="hero">
+            <div class="terminal-box">
+                
+                <div class="profile-pic-container">
+                    <img src="alex.jpg" alt="David Soatse" class="profile-pic">
                 </div>
-                <div class="hacker-card border border-gray-800 p-6 rounded bg-black text-center group">
-                    <i class="fab fa-python text-4xl mb-4 group-hover:text-yellow-400"></i>
-                    <p class="font-bold">Python / Django</p>
+                <p style="color: #888; font-size: 0.9rem; margin-bottom: 10px;">$ whoami</p>
+                <h1>David Soatse</h1>
+                <div class="typing-container">
+                    <div class="typing">CyberSecurity & Software Engineering Student</div>
                 </div>
-                <div class="hacker-card border border-gray-800 p-6 rounded bg-black text-center group">
-                    <i class="fas fa-shield-alt text-4xl mb-4 group-hover:text-red-500"></i>
-                    <p class="font-bold">Sécurité</p>
+                <p style="margin-top: 20px; color: #bbb;">Spécialisé en Pentesting et sécurisation d'infrastructures.</p>
+            </div>
+        </section>
+
+        <section class="skills-section">
+            <h2 style="text-align: center; color: var(--primary);">CORE_SKILLS</h2>
+            <div class="grid">
+                <div class="skill-card">
+                    <h3>PENTESTING</h3>
+                    <p>Kali Linux, Metasploit, Nmap, Burp Suite. Analyse de vulnérabilités.</p>
                 </div>
-                <div class="hacker-card border border-gray-800 p-6 rounded bg-black text-center group">
-                    <i class="fab fa-js text-4xl mb-4 group-hover:text-yellow-300"></i>
-                    <p class="font-bold">JavaScript / PHP</p>
+                <div class="skill-card">
+                    <h3>DEVELOPMENT</h3>
+                    <p>Python (Django), C, TypeScript. Création d'outils de sécurité.</p>
                 </div>
-                <div class="hacker-card border border-gray-800 p-6 rounded bg-black text-center group">
-                    <i class="fab fa-html5 text-4xl mb-4 group-hover:text-orange-500"></i>
-                    <p class="font-bold">HTML / CSS</p>
-                </div>
-                <div class="hacker-card border border-gray-800 p-6 rounded bg-black text-center group">
-                    <i class="fab fa-bootstrap text-4xl mb-4 group-hover:text-purple-500"></i>
-                    <p class="font-bold">Bootstrap</p>
+                <div class="skill-card">
+                    <h3>SYSTEMS</h3>
+                    <p>Administration Linux, Virtualisation (VMware), Docker.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
-    <footer class="py-12 text-center text-xs text-gray-600 border-t border-gray-900">
-        <p>STATUS: <span class="text-green-500">ONLINE</span> | VERSION: 2.0.4</p>
-        <p class="mt-2">© 2026 David Soatse - Engineered for Security</p>
-    </footer>
-
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        /* --- CONFIGURATION DES PARTICULES --- */
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#00ff41" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": false },
+                "size": { "value": 2, "random": true },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#00ff41",
+                    "opacity": 0.3,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "grab" },
+                    "onclick": { "enable": true, "mode": "push" },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": { "distance": 200, "line_linked": { "opacity": 1 } }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
 </body>
 </html>
