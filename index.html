@@ -3,260 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>David Soatse | CyberSecurity Portfolio</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&display=swap" rel="stylesheet">
-
+    <title>David Soatse | Cyber HUD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
-        /* --- STYLE CSS --- */
         :root {
-            --primary: #00ff41; /* Vert Matrix */
-            --primary-dim: rgba(0, 255, 65, 0.4);
-            --bg: #050505;
-            --card-bg: rgba(20, 20, 20, 0.8);
-            --text: #e0e0e0;
+            --neon-blue: #00d4ff;
+            --neon-purple: #9d00ff;
+            --bg-dark: #020b14;
+            --panel-bg: rgba(0, 40, 80, 0.15);
+            --border-glow: rgba(0, 212, 255, 0.4);
         }
 
-        * {
+        body, html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
+            background-color: var(--bg-dark);
+            color: #fff;
             font-family: 'Fira Code', monospace;
-            overflow-x: hidden;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        /* Container pour l'animation de fond */
-        #particles-js {
-            position: fixed;
+        /* Layout type "Split Screen" comme sur ton image */
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* --- SECTION GAUCHE : EXPLORATEUR DE FICHIERS --- */
+        .sidebar {
+            width: 300px;
+            background: rgba(10, 25, 47, 0.9);
+            border-right: 1px solid var(--border-glow);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            font-size: 0.85rem;
+        }
+
+        .sidebar h2 {
+            font-family: 'Orbitron';
+            font-size: 0.9rem;
+            color: var(--neon-blue);
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--neon-blue);
+            padding-bottom: 5px;
+        }
+
+        .file-item {
+            padding: 8px 0;
+            color: #8892b0;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .file-item:hover { color: var(--neon-blue); }
+
+        .file-item::before {
+            content: "📁";
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+
+        /* --- SECTION DROITE : INTERFACE CYBER --- */
+        .main-display {
+            flex: 1;
+            position: relative;
+            background: radial-gradient(circle at center, #0a192f 0%, #020b14 100%);
+            display: flex;
+            flex-direction: column;
+        }
+
+        #network-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             z-index: 1;
-            top: 0;
-            left: 0;
         }
 
-        /* Contenu principal au-dessus des particules */
-        .content-overlay {
+        .hud-overlay {
             position: relative;
             z-index: 10;
-            width: 100%;
-        }
-
-        header {
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
-            backdrop-filter: blur(5px);
-        }
-
-        .logo {
-            color: var(--primary);
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 90vh;
+            padding: 30px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            height: 100%;
+        }
+
+        /* --- TA PHOTO ET INFOS --- */
+        .header-profile {
+            display: flex;
             align-items: center;
-            text-align: center;
-            padding: 0 20px;
+            gap: 25px;
+            margin-bottom: 40px;
         }
 
-        .terminal-box {
-            background: var(--card-bg);
-            padding: 40px;
-            border: 1px solid var(--primary);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
-            border-radius: 8px;
-            max-width: 800px;
-            position: relative;
-        }
-
-        /* --- AJOUT DE LA PHOTO --- */
         .profile-pic-container {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 30px auto; /* Centre la photo et l'écarte du titre */
             position: relative;
+            width: 120px;
+            height: 120px;
         }
 
         .profile-pic {
             width: 100%;
             height: 100%;
-            border-radius: 50%; /* Rend la photo circulaire */
-            border: 3px solid var(--primary); /* Contour vert */
-            box-shadow: 0 0 15px var(--primary-dim); /* Effet brillant */
-            object-fit: cover; /* Recadre proprement l'image */
-            display: block;
-        }
-        /* -------------------------- */
-
-        h1 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 10px;
-            text-transform: uppercase;
+            border-radius: 50%;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+            object-fit: cover;
         }
 
-        .typing-container {
-            min-height: 1.6em; /* Évite les sauts de ligne quand le texte s'écrit */
+        .profile-status {
+            font-family: 'Orbitron';
         }
 
-        .typing {
-            border-right: 2px solid var(--primary);
-            white-space: nowrap;
-            overflow: hidden;
-            display: inline-block;
-            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        .profile-status h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
         }
 
-        /* Grille de compétences */
-        .skills-section {
-            padding: 100px 10%;
-        }
-
-        .grid {
+        /* --- GRAPHIQUES ET JAUGES --- */
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 50px;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 800px;
         }
 
-        .skill-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(0, 255, 65, 0.3);
-            padding: 25px;
-            transition: all 0.3s ease;
-            border-radius: 4px;
+        .stat-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-glow);
+            padding: 20px;
+            backdrop-filter: blur(5px);
         }
 
-        .skill-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+        .threat-level {
+            color: #ff4d4d;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
         }
 
-        .skill-card h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
-        /* Animations */
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+        .bar-container {
+            height: 8px;
+            background: #111;
+            margin-top: 10px;
         }
 
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--primary); }
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 1.5rem; }
-            .profile-pic-container { width: 100px; height: 100px; }
-            .terminal-box { padding: 25px; }
+        .bar-fill {
+            height: 100%;
+            background: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+            width: 85%;
         }
     </style>
 </head>
 <body>
 
-    <div id="particles-js"></div>
+    <div class="container">
+        <div class="sidebar">
+            <h2>RESOURCES_NAV</h2>
+            <div class="file-item">CORE_SYSTEM</div>
+            <div class="file-item">SECURITY_LOGS</div>
+            <div class="file-item">PENTEST_TOOLS</div>
+            <div class="file-item">PROJECTS_ARCHIVE</div>
+            <div class="file-item">NETWORK_MAP</div>
+            <div class="file-item">BIO_DATABASE</div>
+        </div>
 
-    <div class="content-overlay">
-        <header>
-            <div class="logo">DS_SECURE >_</div>
-            <nav>
-                <span style="color: var(--primary); font-size: 0.8rem;">[STATUS: VERIFIED]</span>
-            </nav>
-        </header>
+        <div class="main-display">
+            <canvas id="network-canvas"></canvas>
+            
+            <div class="hud-overlay">
+                <div class="header-profile">
+                    <div class="profile-pic-container">
+                        <img src="alex.jpg" alt="David Soatse" class="profile-pic">
+                    </div>
+                    <div class="profile-status">
+                        <p style="color: var(--neon-purple); margin: 0;">ID: DAVID_SOATSE</p>
+                        <h1>CYBERSECURITY SPECIALIST</h1>
+                        <p>> STATUS: <span style="color: var(--neon-blue);">AUTHORIZED</span></p>
+                    </div>
+                </div>
 
-        <section class="hero">
-            <div class="terminal-box">
-                
-                <div class="profile-pic-container">
-                    <img src="alex.jpg" alt="David Soatse" class="profile-pic">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>THREAT_LEVEL: <span class="threat-level">CRITICAL</span></h3>
+                        <p style="font-size: 0.8rem;">Monitoring network intrusion attempts...</p>
+                        <div class="bar-container"><div class="bar-fill" style="width: 92%; background: #ff4d4d;"></div></div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>SYSTEM_SKILLS</h3>
+                        <p style="font-size: 0.8rem;">Software Engineering Sync: 88%</p>
+                        <div class="bar-container"><div class="bar-fill"></div></div>
+                    </div>
                 </div>
-                <p style="color: #888; font-size: 0.9rem; margin-bottom: 10px;">$ whoami</p>
-                <h1>David Soatse</h1>
-                <div class="typing-container">
-                    <div class="typing">CyberSecurity & Software Engineering Student</div>
+
+                <div style="margin-top: auto; padding: 20px; background: rgba(0,0,0,0.4); border-left: 3px solid var(--neon-purple);">
+                    <p style="font-size: 0.8rem; color: var(--neon-purple);">$ tail -f /var/log/activity</p>
+                    <p style="font-size: 0.7rem;">[INFO] Decrypting portfolio assets... DONE</p>
+                    <p style="font-size: 0.7rem;">[WARN] High traffic detected from 127.0.0.1</p>
                 </div>
-                <p style="margin-top: 20px; color: #bbb;">Spécialisé en Pentesting et sécurisation d'infrastructures.</p>
             </div>
-        </section>
-
-        <section class="skills-section">
-            <h2 style="text-align: center; color: var(--primary);">CORE_SKILLS</h2>
-            <div class="grid">
-                <div class="skill-card">
-                    <h3>PENTESTING</h3>
-                    <p>Kali Linux, Metasploit, Nmap, Burp Suite. Analyse de vulnérabilités.</p>
-                </div>
-                <div class="skill-card">
-                    <h3>DEVELOPMENT</h3>
-                    <p>Python (Django), C, TypeScript. Création d'outils de sécurité.</p>
-                </div>
-                <div class="skill-card">
-                    <h3>SYSTEMS</h3>
-                    <p>Administration Linux, Virtualisation (VMware), Docker.</p>
-                </div>
-            </div>
-        </section>
+        </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
     <script>
-        /* --- CONFIGURATION DES PARTICULES --- */
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#00ff41" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.5, "random": false },
-                "size": { "value": 2, "random": true },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#00ff41",
-                    "opacity": 0.3,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 2,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": { "enable": true, "mode": "grab" },
-                    "onclick": { "enable": true, "mode": "push" },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": { "distance": 200, "line_linked": { "opacity": 1 } }
-                }
-            },
-            "retina_detect": true
-        });
+        // Script des particules pour l'effet de réseau
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if(this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if(this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+        }
+
+        for(let i=0; i<50; i++) particles.push(new Particle());
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                ctx.fillStyle = 'rgba(0, 212, 255, 0.5)';
+                ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI*2); ctx.fill();
+                
+                particles.forEach(p2 => {
+                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if(dist < 150) {
+                        ctx.strokeStyle = `rgba(0, 212, 255, ${0.2 - dist/750})`;
+                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                    }
+                });
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
     </script>
 </body>
 </html>
