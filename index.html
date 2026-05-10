@@ -3,51 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Portfolio | CV en ligne</title>
+    <title>David Soatse | Cyber Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @keyframes pulse-blue {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+        .hacker-card:hover {
+            transform: translateY(-10px);
+            border-color: #3b82f6;
+            transition: all 0.3s ease;
+        }
+        .glitch-text:hover {
+            text-shadow: 2px 0 #ff00c1, -2px 0 #00fff9;
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white font-sans">
+<body class="bg-black text-gray-300 font-mono">
 
-    <!-- Section Navigation -->
-    <nav class="p-6 flex justify-between items-center max-w-6xl mx-auto">
-        <h1 class="text-2xl font-bold text-blue-400">Portfolio</h1>
-        <div class="space-x-6">
-            <a href="#parcours" class="hover:text-blue-400">Parcours</a>
-            <a href="#projets" class="hover:text-blue-400">Projets</a>
-            <a href="#contact" class="hover:text-blue-400">Contact</a>
+    <nav class="p-6 flex justify-between items-center max-w-6xl mx-auto border-b border-gray-800">
+        <h1 class="text-xl font-bold text-blue-500 tracking-widest uppercase glitch-text">David@Soatse:~#</h1>
+        <div class="space-x-6 text-sm">
+            <a href="#competences" class="hover:text-blue-400 transition">Skills</a>
+            <a href="#projets" class="hover:text-blue-400 transition">Projects</a>
+            <a href="https://github.com/davidsoatse-wq" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded">GitHub</a>
         </div>
     </nav>
 
-    <!-- Section Hero (Présentation + Photo) -->
-    <section class="py-20 text-center max-w-4xl mx-auto">
-        <div class="mb-8">
-            <!-- Remplacez 'ma-photo.jpg' par le nom de votre fichier photo plus tard -->
-            <img src="alex.jpg" alt="Ma Photo" class="w-40 h-40 rounded-full mx-auto border-4 border-blue-500 object-cover shadow-lg">
+    <section class="py-24 text-center max-w-4xl mx-auto px-4">
+        <div class="relative inline-block mb-10">
+            <img src="alex.jpg" alt="David Soatse" class="w-44 h-44 rounded-full border-2 border-blue-500 object-cover grayscale hover:grayscale-0 transition duration-500 shadow-[0_0_20px_rgba(59,130,246,0.5)]">
+            <div class="absolute inset-0 rounded-full" style="animation: pulse-blue 2s infinite;"></div>
         </div>
-        <h2 class="text-5xl font-extrabold mb-4">Bonjour, je suis un futur Ingénieur Logiciel</h2>
-        <p class="text-xl text-gray-400 mb-8">Passionné par la cybersécurité et le développement web.</p>
-        <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-bold transition">Me contacter</a>
+        <h2 class="text-5xl font-black text-white mb-4 tracking-tighter uppercase">David Soatse</h2>
+        <p class="text-blue-400 text-lg mb-8 font-bold">&gt; Software Engineer & Cybersecurity Student</p>
+        <p class="text-gray-500 max-w-2xl mx-auto italic">"Analyser le code, sécuriser l'avenir. Basé au Cameroun."</p>
     </section>
 
-    <!-- Section Parcours -->
-    <section id="parcours" class="py-20 bg-gray-800">
-        <div class="max-w-4xl mx-auto px-6">
-            <h3 class="text-3xl font-bold mb-12 text-center">Mon Parcours</h3>
-            <div class="border-l-2 border-blue-500 pl-8 space-y-10">
-                <div>
-                    <span class="text-blue-400 font-bold">2024 - Présent</span>
-                    <h4 class="text-xl font-semibold">Licence Professionnelle en Software Engineering & Cybersecurity</h4>
-                    <p class="text-gray-400">Formation approfondie sur la sécurité informatique et le développement d'applications.</p>
+    <section id="competences" class="py-20 bg-[#0a0a0a]">
+        <div class="max-w-6xl mx-auto px-6">
+            <h3 class="text-2xl font-bold mb-16 text-center text-white uppercase tracking-[0.3em]">Core_Competencies</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="hacker-card border border-gray-800 p-6 rounded bg-black text-center group">
+                    <i class="fab fa-react text-4xl mb-4 group-hover:text-blue-400"></i>
+                    <p class="font-bold">React</p>
                 </div>
-                <!-- Ajoutez d'autres étapes de votre parcours ici -->
+                <div class="hacker-card border border-gray-800 p-6 rounded bg-black text-center group">
+                    <i class="fab fa-python text-4xl mb-4 group-hover:text-yellow-400"></i>
+                    <p class="font-bold">Python / Django</p>
+                </div>
+                <div class="hacker-card border border-gray-800 p-6 rounded bg-black text-center group">
+                    <i class="fas fa-shield-alt text-4xl mb-4 group-hover:text-red-500"></i>
+                    <p class="font-bold">Sécurité</p>
+                </div>
+                <div class="hacker-card border border-gray-800 p-6 rounded bg-black text-center group">
+                    <i class="fab fa-js text-4xl mb-4 group-hover:text-yellow-300"></i>
+                    <p class="font-bold">JavaScript / PHP</p>
+                </div>
+                <div class="hacker-card border border-gray-800 p-6 rounded bg-black text-center group">
+                    <i class="fab fa-html5 text-4xl mb-4 group-hover:text-orange-500"></i>
+                    <p class="font-bold">HTML / CSS</p>
+                </div>
+                <div class="hacker-card border border-gray-800 p-6 rounded bg-black text-center group">
+                    <i class="fab fa-bootstrap text-4xl mb-4 group-hover:text-purple-500"></i>
+                    <p class="font-bold">Bootstrap</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Pied de page -->
-    <footer id="contact" class="py-10 text-center border-t border-gray-700">
-        <p class="text-gray-500">© 2026 - Créé avec passion</p>
+    <footer class="py-12 text-center text-xs text-gray-600 border-t border-gray-900">
+        <p>STATUS: <span class="text-green-500">ONLINE</span> | VERSION: 2.0.4</p>
+        <p class="mt-2">© 2026 David Soatse - Engineered for Security</p>
     </footer>
 
 </body>
